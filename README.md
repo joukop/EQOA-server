@@ -1,2 +1,5 @@
 # EQOA-server
-https://sandstorm.kiekko.tv
+
+At the moment this repo contains just some snippets mainly for documentation and to help the other developers who are working on their own servers. This doesn't directly compile as 99% of the code is missing, pending cleanup etc.
+
+
