@@ -16,6 +16,9 @@ import tv.kiekko.eqoa.geom.Path;
 import tv.kiekko.eqoa.geom.Point;
 import tv.kiekko.eqoa.udp.UDPServer.EntityBucket;
 
+
+// Entity = a player or an NPC
+
 public class Entity {
 
         public int id;
