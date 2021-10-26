@@ -47,7 +47,14 @@ public class Entity {
         float scale=1;
 
   
-  
+	public Point getPosition() {
+		return movement.getPosition();
+	}
+	
+	public Point getRotation() {
+		return new Point(facing,0,0);
+	}
+	  
   
         // Update the state ByteBuf to send information about this Entity to players.
         // This server uses the shorter state message, 160 bytes?
