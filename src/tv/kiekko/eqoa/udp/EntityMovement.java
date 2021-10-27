@@ -54,9 +54,9 @@ public class EntityMovement {
 	}
 	
 	// Entity.position is in fact the point where its last movement vector started.
-  // Movement speed is this.walk_speed.
-  // 1-byte approximation is vx,vy,vz
-	// last_walk is the timestamp of when the movement started
+  	// Movement speed is this.movement_speed.
+  	// 1-byte approximation is vx,vy,vz
+	// movement_started is the timestamp of when the movement started
 	// The momentary position is calculated here using these.
   
 	Point getPosition() {
@@ -204,7 +204,7 @@ public class EntityMovement {
 	public void updateMovement() {
 		long now=System.currentTimeMillis();
 		final boolean debug=false;
-    next_movement_update=0;
+    		next_movement_update=0;
 		last_movement=now;
 		if (prevPosition!=null) prevPosition.set(entity.position);
 		else prevPosition=entity.position.copy();
@@ -222,7 +222,7 @@ public class EntityMovement {
 			}
 			movement_target.set(chasing.position);
 		}
-    if (movement_target.x==0) return;
+    		if (movement_target.x==0) return;
 		if (movement_started!=0) {
 			entity.setPosition(getPosition());
 		}		
@@ -284,12 +284,11 @@ public class EntityMovement {
 				}
 			}
 		}
-    entity.faceTo(waypoint);
+    		entity.faceTo(waypoint);
 		movement_speed=speed;
 		if (debug) UDPServer.Log("movement "+entity+" to "+waypoint+" d="+d+" dd="+total_dist+" v="+entity.velocity);
 		entity.updateAndBroadcast();
-    // schedule the next movement update so that this will be called about when the destination is reached
-		// dd=distance, walk_speed=speed
+    		// schedule the next movement update so that this will be called about when the destination is reached
 		if (dd>0.5f) dd-=0.5f;
 		int t=(int)(1000f*dd/speed);
 		if (chasing!=null && t>100) t=100;
@@ -304,7 +303,7 @@ public class EntityMovement {
 	}
 
 	
-  // simple sector system to prevent all NPC's attacking someone from standing on top of each other
+  	// simple sector system to prevent all NPC's attacking someone from standing on top of each other
   
 	Entity[] attackerInSector=new Entity[9];
 	
