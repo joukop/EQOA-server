@@ -54,8 +54,34 @@ public class Entity {
 	public Point getRotation() {
 		return new Point(facing,0,0);
 	}
-	  
+	
+	
+	// this is called only from MessageProcessor.processPlayerControl()
   
+        public void playerMoveTo(float x,float y,float z) {
+                setPosition(x,y,z);
+                updateAndBroadcast();
+        }
+
+
+	// This is called after we have done some changes to this Entity (e.g. changed animation sequence or gear or facing)
+	// and want to send the new state to any players who see this
+	
+        public void updateAndBroadcast() {
+                updateState();
+		// create an "object update" message
+                Message m=new Message(state,-1);
+		// send it to everyone in range except this Entity's own connection (if any)
+                UDPServer.broadcastStateExcept(this,m,connection);
+		// if this Entity has a connection, meaning it's a player, send the
+		// state to its own connection too, but on channel 0
+                if (connection!=null) {
+                        m.setType(0);
+                        connection.sendState(m);
+                }
+        }
+
+	
         // Update the state ByteBuf to send information about this Entity to players.
         // This server uses the shorter state message, 160 bytes?
   
